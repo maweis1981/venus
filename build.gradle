@@ -1,0 +1,41 @@
+import com.sun.tools.javac.resources.compiler
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'idea'
+apply plugin: 'jetty'
+
+jar {
+    baseName = 'venus-service'
+    version =  '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+    maven { url "http://repo.spring.io/libs-snapshot" }
+    maven { url "http://localhost:8081/nexus/content/repositories/machf_private_snapshots" }
+}
+
+dependencies {
+    compile("com.maweis:maweis-dto:0.0.4-SNAPSHOT")
+
+    compile("commons-beanutils:commons-beanutils:1.8.3")
+    compile("org.springframework.boot:spring-boot-starter-web:0.5.0.M6")
+
+    compile "com.github.briandilley.jsonrpc4j:jsonrpc4j:1.0"
+
+    compile("org.codehaus.jackson:jackson-core-asl:1.9.13")
+    compile("org.codehaus.jackson:jackson-mapper-asl:1.9.13")
+
+//    compile("com.fasterxml.jackson.core:jackson-core:2.3.0")
+//    compile("com.fasterxml.jackson.core:jackson-databind:2.3.0")
+//    compile("com.fasterxml.jackson.core:jackson-annotations:2.3.0")
+
+    testCompile("junit:junit:4.11")
+    testCompile("org.unitils:unitils-spring:3.3")
+}
+
+
+jettyRunWar.contextPath = ''
+jettyRun.httpPort = 8888
+
